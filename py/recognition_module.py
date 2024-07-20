@@ -15,6 +15,152 @@ from retry_requests import retry
 
 
 
+def single_classification(single_path):
+    
+    """
+    This function take a single path of a photo, then do reshape to fit the models, and do classification
+    Input is a path of a certain photo
+    Output is a tuple which contains subtype(for being send to a correct sub-model), 
+                                     info(a string having all info of a clothes), 
+                                     res(a list having all info of a clothes)
+    """
+    
+    # Our model only applies to dataframes. 
+    # Therefore, in order to enable the model to predict a single picture, 
+    # we turn this picture into a dataframe with only one row.
+    train_images = np.zeros((1,80,60,3))
+  
+    path = single_path#/content/images   
+    img = cv2.imread(path)
+    
+    #reshape img to apply the model
+    if img.shape != (80,60,3):
+        img = image.load_img(path, target_size=(80,60,3))
+
+    train_images[0] = img
+
+    
+    result2 = sub_list[np.argmax(sub_model.predict(train_images))]
+    
+    # According to the results of the first model, branch to three other models
+    if result2=="top":
+        res = single_helper(train_images,top_model,top_list)
+    elif result2=="bottom":
+        res = single_helper(train_images,bottom_model,bottom_list)
+    elif result2=="foot":
+        res = single_helper(train_images,foot_model,foot_list)
+    res.append(single_path)
+    res_str = f"{res[0]}, {res[1]}, {color_classification(single_path)}, {res[3]}, {res[4]}, {single_path}" 
+    
+    return (result2,res_str,res)
+
+
+
+
+def find_combo_by_top(top_color_group, combotype):
+    """
+    This function recommend color base on a seed color by a given angle in a colorwheel.
+    Input is a color (from 12+3 colorwheel) and a angle: moderate_combo == 90
+                                                         similar_combo == 60
+                                                         close_combo == 30
+                                                         same_combo == 0
+    output is a list of two color
+    """
+    
+    co = int(combotype/30)
+    
+    
+    #if top color is multi
+    if top_color_group == 15: #if top color is multi
+        bottom_color_group = random.choice([12,13,14])
+        if bottom_color_group==12: #if bottom color is black
+            shoes_color_group = 13 #then set shoes to be white
+            
+        elif bottom_color_group==13:                      #if bottom color is white
+            shoes_color_group = random.choice([12,13,14]) #then set shoes to be black or white or grey
+            
+        else:                      #if bottom color is grey
+            shoes_color_group = random.choice([12,13])    #then set shoes to be black or white
+    
+    
+    #if top color is mono
+    elif top_color_group == 12 or top_color_group == 13 or top_color_group == 14:
+        if top_color_group == 12:
+            bottom_color_group = random.choice([12,13])
+            if bottom_color_group==12:
+                shoes_color_group = 13
+            else:
+                shoes_color_group=random.choice([12,13])
+        elif top_color_group == 13:
+            bottom_color_group = random.choice([12,13])
+            if bottom_color_group==12:
+                shoes_color_group = 13
+            else:
+                shoes_color_group=12
+        else:
+            bottom_color_group=random.choice([12,13])
+            shoes_color_group=random.choice([12,13])  
+    else: 
+        bottom_color_group = random.choice([top_color_group-co, top_color_group+co])
+        if bottom_color_group==top_color_group-co:
+            shoes_color_group = top_color_group+co
+        else:
+            shoes_color_group = top_color_group-co
+            
+        #In fact, we can simplify this part of the code
+        if bottom_color_group == 12:
+            bottom_color_group = 0
+        if bottom_color_group == 13:
+            bottom_color_group = 1
+        if bottom_color_group == 14:
+            bottom_color_group = 2 
+        if bottom_color_group == 15:
+            bottom_color_group = 3
+        if bottom_color_group == 16:
+            bottom_color_group = 4
+        if bottom_color_group == 17:
+            bottom_color_group = 5
+            
+        if shoes_color_group == 12:
+            shoes_color_group = 0
+        if shoes_color_group == 13:
+            shoes_color_group = 1
+        if shoes_color_group == 14:
+            shoes_color_group = 2
+        if shoes_color_group == 15:
+            shoes_color_group = 3
+        if shoes_color_group == 16:
+            shoes_color_group = 4
+        if shoes_color_group == 17:
+            shoes_color_group = 5
+        
+        if bottom_color_group == -1:
+            bottom_color_group = 11
+        if bottom_color_group == -2:
+            bottom_color_group = 10
+        if bottom_color_group == -3:
+            bottom_color_group = 9 
+        if bottom_color_group == -4:
+            bottom_color_group = 8
+        if bottom_color_group == -5:
+            bottom_color_group = 7
+        if bottom_color_group == -6:
+            bottom_color_group = 6
+            
+        if shoes_color_group == -1:
+            shoes_color_group = 11
+        if shoes_color_group == -2:
+            shoes_color_group = 10
+        if shoes_color_group == -3:
+            shoes_color_group = 9
+        if shoes_color_group == -4:
+            shoes_color_group = 8
+        if shoes_color_group == -5:
+            shoes_color_group = 7
+        if shoes_color_group == -6:
+            shoes_color_group = 6
+            
+    return (bottom_color_group , shoes_color_group)
 
 
 
