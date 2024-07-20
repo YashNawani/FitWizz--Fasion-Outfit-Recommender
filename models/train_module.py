@@ -20,6 +20,41 @@ import cv2
 
 import matplotlib.image as mpimg
 
+def make_input_array_subcate(df):
+    train_images = np.zeros((len(df.id), 80, 60, 3))
+    for i in range(len(df.id)):
+        ID = df.id.iloc[i]
+        path = f"images/{ID}.jpg"
+        img = cv2.imread(path)
+        if img.shape != (80, 60, 3):
+            img = image.load_img(path, target_size=(80, 60, 3))
+        train_images[i] = img
+ 
+    data = tf.data.Dataset.from_tensor_slices(
+        (
+            {"images": train_images},
+            {"subCategory": df[["subCategory"]]}
+        )
+    )
+    return data
+
+
+
+
+def build_model(width, height):
+    res50 = keras.applications.ResNet50(weights='imagenet', include_top=False, input_shape=(80, 60, 3))
+    res50.trainable = False
+    inputs = keras.Input(shape=(width, height, 3), name="images")
+    x = res50(inputs, training=False)
+    x = layers.Conv2D(32, (2, 2), activation='relu')(x)
+    x = layers.Flatten()(x)
+    x = layers.Dense(1024, activation='relu')(x)
+    sub_branch = make_branch(x, len(le.classes_), 'softmax', 'subCategory')
+    model = keras.Model(inputs=inputs, outputs=[sub_branch])
+    return model
+
+
+
 
 def my_le(styles):
     articleTypeLB = LabelEncoder()
@@ -43,6 +78,13 @@ def get_234_df(x):
     styles = styles[(styles.masterCategory == 'Apparel') | (styles.masterCategory == 'Footwear')]
     styles = styles.drop(styles[styles["subCategory"] == "Innerwear"].index)
     styles = styles.dropna()
+    styles = df_drop(styles, "subCategory", ["Apparel Set", "Dress", "Loungewear and Nightwear", "Saree", "Socks"])
+    styles["subCategory"] = styles["subCategory"].transform(lambda x: "Footwear" if (x in ["Shoes", "Flip Flops", "Sandal"]) else x)
+    styles = styles.drop(labels=[6695, 16194, 32309, 36381, 40000], axis=0)
+    styles = styles[styles.subCategory == x]
+    group_color(styles)
+    styles.baseColour = styles.colorgroup
+    return styles
     
 
 def build_model(width, height, articleTypeLB, genderLB, baseColourLB, seasonLB, usageLB):

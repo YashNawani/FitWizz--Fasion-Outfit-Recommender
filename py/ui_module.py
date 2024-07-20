@@ -8,6 +8,71 @@ import random
 from recognition_module import *
 
 class Ui_MainWindow(object):
+
+
+
+
+
+    
+    def ALL_PREDICT(self):
+        sub, info, res_place_holder = single_classification(self.current_photo_path)
+        parsed_info = self.parse_info(info)
+        if not hasattr(self, 'parsed_items'):
+            self.parsed_items = []
+        self.parsed_items.append(parsed_info)
+        if sub == "top":
+            item = QtWidgets.QListWidgetItem(info)
+            self.TOP_LIST.addItem(item)
+            self.top.append(res_place_holder)
+        elif sub == "bottom":
+            item = QtWidgets.QListWidgetItem(info)
+            self.BOTTOM_LIST.addItem(item)
+            self.bottom.append(res_place_holder)
+        elif sub == "foot":
+            item = QtWidgets.QListWidgetItem(info)
+            self.SHOE_LIST.addItem(item)
+            self.shoes.append(res_place_holder)
+ 
+    def TOP_LIST_EDIT(self):
+        selected_items = self.TOP_LIST.selectedItems()
+        text, okPressed = QtWidgets.QInputDialog.getText(self.AddTopButton, "EDIT", "Please Edit This Top:", QtWidgets.QLineEdit.Normal, selected_items[0].text())
+        for i in selected_items:
+            self.TOP_LIST.takeItem(self.TOP_LIST.row(i))
+        if okPressed and text != '':
+            item = QtWidgets.QListWidgetItem(text)
+            self.TOP_LIST.addItem(item)
+ 
+    def TOP_LIST_DEL(self):
+        selected_items = self.TOP_LIST.selectedItems()
+        for i in selected_items:
+            self.TOP_LIST.takeItem(self.TOP_LIST.row(i))
+        text = selected_items[0].text()
+        path = text.split(", ")[-1]
+        for i in self.top:
+            if i[-1] == path:
+                self.top.remove(i)
+ 
+    def BOTTOM_LIST_EDIT(self):
+        selected_items = self.BOTTOM_LIST.selectedItems()
+        text, okPressed = QtWidgets.QInputDialog.getText(self.AddBottomButton, "EDIT", "Please Edit This Bottom:", QtWidgets.QLineEdit.Normal, selected_items[0].text())
+        for i in selected_items:
+            self.BOTTOM_LIST.takeItem(self.BOTTOM_LIST.row(i))
+        if okPressed and text != '':
+            item = QtWidgets.QListWidgetItem(text)
+            self.BOTTOM_LIST.addItem(item)
+ 
+    def BOTTOM_LIST_DEL(self):
+        selected_items = self.BOTTOM_LIST.selectedItems()
+        for i in selected_items:
+            self.BOTTOM_LIST.takeItem(self.BOTTOM_LIST.row(i))
+        text = selected_items[0].text()
+        path = text.split(", ")[-1]
+        for i in self.bottom:
+            if i[-1] == path:
+                self.bottom.remove(i)
+
+
+
     def SHOE_LIST_EDIT(self):
         selected_items = self.SHOE_LIST.selectedItems()
         text, okPressed = QtWidgets.QInputDialog.getText(self.AddShoeButton, "EDIT", "Please Edit This Shoes:", QtWidgets.QLineEdit.Normal, selected_items[0].text())
