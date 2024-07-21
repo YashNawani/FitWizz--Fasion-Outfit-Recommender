@@ -30,6 +30,13 @@ class Ui_MainWindow(object):
         cv2.destroyAllWindows()
         self.ALL_PREDICT()
 
+    def select_photo_from_system(self):
+        photo_path, _ = QFileDialog.getOpenFileName(None, "Select file", "H:/")
+        if photo_path:
+            self.current_photo_path = photo_path
+            print("Photo selected.")
+            self.ALL_PREDICT()
+
     def ALL_PREDICT(self):
         sub, info, res_place_holder = single_classification(self.current_photo_path)
         parsed_info = self.parse_info(info)
