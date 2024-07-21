@@ -288,3 +288,13 @@ class Ui_MainWindow(object):
         self.StyleComboBox.currentIndexChanged.connect(self.style_changed)
 
         #git check
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.AddTopButton.setText(_translate("MainWindow", "EDIT"))
+        self.DeleteTopButton.setText(_translate("MainWindow", "DELETE"))
+        self.AddBottomButton.setText(_translate("MainWindow", "EDIT "))
+        self.DeleteBottomButton.setText(_translate("MainWindow", "DELETE"))
+        self.AddShoeButton.setText(_translate("MainWindow", "EDIT "))
+        self.DeleteShoeButton.setText(_translate("MainWindow", "DELETE"))
+        self.GenerateButton.setText(_translate("MainWindow", "Generate Today\'s Outfit Recommendation"))
