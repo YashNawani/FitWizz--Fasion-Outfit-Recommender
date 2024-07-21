@@ -11,7 +11,7 @@ class Ui_MainWindow(object):
 
 
 
-
+    # Git check
 
     
     def ALL_PREDICT(self):
