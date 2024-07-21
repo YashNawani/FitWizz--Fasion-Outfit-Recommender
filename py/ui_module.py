@@ -37,6 +37,20 @@ class Ui_MainWindow(object):
             print("Photo selected.")
             self.ALL_PREDICT()
 
+    def set_preferred_gender(self, index):
+        if index > 0:
+            selected_gender = self.GenderComboBox.itemText(index)
+            if selected_gender == "Mix":
+                self.gender_set_by_user = False
+                print("Gender selection cleared due to 'Mix' selection.")
+            else:
+                self.preferred_gender = selected_gender
+                self.gender_set_by_user = True
+                print("Preferred gender set to:", self.preferred_gender)
+        else:
+            self.gender_set_by_user = False
+            print("Gender selection cleared.")
+
     def ALL_PREDICT(self):
         sub, info, res_place_holder = single_classification(self.current_photo_path)
         parsed_info = self.parse_info(info)
