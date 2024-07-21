@@ -286,3 +286,5 @@ class Ui_MainWindow(object):
         self.ClickPhotoButton.clicked.connect(self.capture_photo_with_camera)
         self.GenderComboBox.currentIndexChanged.connect(self.set_preferred_gender)
         self.StyleComboBox.currentIndexChanged.connect(self.style_changed)
+
+        #git check
