@@ -286,3 +286,84 @@ class Ui_MainWindow(object):
         self.ClickPhotoButton.clicked.connect(self.capture_photo_with_camera)
         self.GenderComboBox.currentIndexChanged.connect(self.set_preferred_gender)
         self.StyleComboBox.currentIndexChanged.connect(self.style_changed)
+
+        #git check
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.AddTopButton.setText(_translate("MainWindow", "EDIT"))
+        self.DeleteTopButton.setText(_translate("MainWindow", "DELETE"))
+        self.AddBottomButton.setText(_translate("MainWindow", "EDIT "))
+        self.DeleteBottomButton.setText(_translate("MainWindow", "DELETE"))
+        self.AddShoeButton.setText(_translate("MainWindow", "EDIT "))
+        self.DeleteShoeButton.setText(_translate("MainWindow", "DELETE"))
+        self.GenerateButton.setText(_translate("MainWindow", "Generate Today\'s Outfit Recommendation"))
+
+        self.HistoryButton.setText(_translate("MainWindow", "ADD A PHOTO"))
+        self.TopLabel.setText(_translate("MainWindow", "Top"))
+        self.label.setText(_translate("MainWindow", "Bottom"))
+        self.label_2.setText(_translate("MainWindow", "Shoes"))
+        self.ClickPhotoButton.setText(_translate("MainWindow", "Click A PHOTO"))
+        self.GenderComboBox.clear()
+        self.GenderComboBox.addItem(_translate("MainWindow", "Select Gender"))
+        genders = ['Men', 'Women', 'Mix']
+        for gender in genders:
+            self.GenderComboBox.addItem(_translate("MainWindow", gender))
+        self.StyleComboBox.clear()
+        self.StyleComboBox.addItem(_translate("MainWindow", "Select Style"))
+        styles = ['Casual', 'Ethnic', 'Formal', 'Home', 'Party', 'Smart Casual', 'Sports', 'Travel', 'Mix']
+
+        for style in styles:
+            self.StyleComboBox.addItem(_translate("MainWindow", style))
+        self.SetSeasonButton.clear()
+        self.SetSeasonButton.addItem(_translate("MainWindow", "Select Season"))
+        seasons = ['Fall', 'Summer', 'Winter', 'Spring', 'Mix']
+        for season in seasons:
+            self.SetSeasonButton.addItem(_translate("MainWindow", season))
+
+    def run_ui():
+        import sys
+        app = QtWidgets.QApplication(sys.argv)
+        QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create('fusion'))
+        MainWindow = QtWidgets.QMainWindow()
+        MainWindow.setStyleSheet("""
+            QWidget {
+                color: #36454F;
+                background-color: #9d8167;
+            }
+            QPushButton {
+                background-color: #D3D3D3;
+                color:  #36454F;
+            }
+            QPushButton#GenerateButton {
+                background-color: #50C878;
+                color:  #36454F;
+            }
+            QPushButton#AddTopButton, QPushButton#DeleteTopButton,
+            QPushButton#AddBottomButton, QPushButton#DeleteBottomButton,
+            QPushButton#AddShoeButton, QPushButton#DeleteShoeButton,
+            QPushButton#HistoryButton {
+                background-color: #C9C0BB;
+                color: #36454F;
+            }
+        QComboBox, QLineEdit {
+                    background-color: #B0C4DE;
+                    color: #36454F;
+                }
+                QListWidget {
+                    background-color: #FFFFFF;
+                    color: #36454F;
+                }
+                QLabel {
+                    background-color: #C9C0BB;
+                    color: #36454F;
+                }
+                QLabel#TopLabel, QLabel#label_2, QLabel#label {
+                    background-color: #9d8167;
+                    color: #36454F;
+                }
+                """)
+        ui = Ui_MainWindow()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+        sys.exit(app.exec_())
