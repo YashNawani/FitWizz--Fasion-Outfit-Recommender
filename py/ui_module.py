@@ -313,3 +313,10 @@ class Ui_MainWindow(object):
         self.StyleComboBox.addItem(_translate("MainWindow", "Select Style"))
         styles = ['Casual', 'Ethnic', 'Formal', 'Home', 'Party', 'Smart Casual', 'Sports', 'Travel', 'Mix']
 
+        for style in styles:
+            self.StyleComboBox.addItem(_translate("MainWindow", style))
+        self.SetSeasonButton.clear()
+        self.SetSeasonButton.addItem(_translate("MainWindow", "Select Season"))
+        seasons = ['Fall', 'Summer', 'Winter', 'Spring', 'Mix']
+        for season in seasons:
+            self.SetSeasonButton.addItem(_translate("MainWindow", season))
