@@ -346,3 +346,24 @@ class Ui_MainWindow(object):
                 background-color: #C9C0BB;
                 color: #36454F;
             }
+        QComboBox, QLineEdit {
+                    background-color: #B0C4DE;
+                    color: #36454F;
+                }
+                QListWidget {
+                    background-color: #FFFFFF;
+                    color: #36454F;
+                }
+                QLabel {
+                    background-color: #C9C0BB;
+                    color: #36454F;
+                }
+                QLabel#TopLabel, QLabel#label_2, QLabel#label {
+                    background-color: #9d8167;
+                    color: #36454F;
+                }
+                """)
+        ui = Ui_MainWindow()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+        sys.exit(app.exec_())
