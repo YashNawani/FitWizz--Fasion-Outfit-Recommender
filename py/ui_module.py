@@ -320,3 +320,29 @@ class Ui_MainWindow(object):
         seasons = ['Fall', 'Summer', 'Winter', 'Spring', 'Mix']
         for season in seasons:
             self.SetSeasonButton.addItem(_translate("MainWindow", season))
+
+    def run_ui():
+        import sys
+        app = QtWidgets.QApplication(sys.argv)
+        QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create('fusion'))
+        MainWindow = QtWidgets.QMainWindow()
+        MainWindow.setStyleSheet("""
+            QWidget {
+                color: #36454F;
+                background-color: #9d8167;
+            }
+            QPushButton {
+                background-color: #D3D3D3;
+                color:  #36454F;
+            }
+            QPushButton#GenerateButton {
+                background-color: #50C878;
+                color:  #36454F;
+            }
+            QPushButton#AddTopButton, QPushButton#DeleteTopButton,
+            QPushButton#AddBottomButton, QPushButton#DeleteBottomButton,
+            QPushButton#AddShoeButton, QPushButton#DeleteShoeButton,
+            QPushButton#HistoryButton {
+                background-color: #C9C0BB;
+                color: #36454F;
+            }
