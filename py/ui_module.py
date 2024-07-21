@@ -228,3 +228,31 @@ class Ui_MainWindow(object):
         self.TopLabel.setTextFormat(QtCore.Qt.RichText)
         self.TopLabel.setObjectName("TopLabel")
         self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(420, 10, 60, 16))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(710, 10, 60, 16))
+        self.label_2.setObjectName("label_2")
+        self.listWidget_1 = QtWidgets.QLabel(self.centralwidget)
+        self.listWidget_1.setGeometry(QtCore.QRect(10, 370, 281, 300))
+        self.listWidget_1.setObjectName("listWidget_1")
+        self.listWidget_1.setPixmap(QtGui.QPixmap("/Users/pingkefan/Desktop/top_question.png").scaled(281, 300))
+        self.listWidget_2 = QtWidgets.QLabel(self.centralwidget)
+        self.listWidget_2.setGeometry(QtCore.QRect(300, 370, 281, 300))
+        self.listWidget_2.setObjectName("listWidget_2")
+        self.listWidget_2.setPixmap(QtGui.QPixmap("/Users/pingkefan/Desktop/top_question.png").scaled(281, 300))
+        self.SetSeasonButton = QtWidgets.QPushButton(self.centralwidget)
+        self.GenderComboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.GenderComboBox.setGeometry(QtCore.QRect(10, self.listWidget_2.geometry().bottom() + 10, 281, 40))
+        self.GenderComboBox.setObjectName("GenderComboBox")
+        self.listWidget_3 = QtWidgets.QLabel(self.centralwidget)
+        self.listWidget_3.setGeometry(QtCore.QRect(590, 370, 281, 300))
+        self.listWidget_3.setObjectName("listWidget_3")
+        self.listWidget_3.setPixmap(QtGui.QPixmap("/Users/pingkefan/Desktop/top_question.png").scaled(281, 300))
+        central_x_position = (self.listWidget_1.geometry().right() + self.listWidget_3.geometry().left()) / 2
+        self.ClickPhotoButton = QtWidgets.QPushButton(self.centralwidget)
+        click_photo_button_width = 281
+        self.ClickPhotoButton.setGeometry(
+            QtCore.QRect(int(central_x_position) - int(click_photo_button_width // 2),
+                         int(self.listWidget_1.geometry().top() - 50),
+                         int(click_photo_button_width), 41))
