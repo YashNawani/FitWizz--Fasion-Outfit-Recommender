@@ -298,3 +298,18 @@ class Ui_MainWindow(object):
         self.AddShoeButton.setText(_translate("MainWindow", "EDIT "))
         self.DeleteShoeButton.setText(_translate("MainWindow", "DELETE"))
         self.GenerateButton.setText(_translate("MainWindow", "Generate Today\'s Outfit Recommendation"))
+
+        self.HistoryButton.setText(_translate("MainWindow", "ADD A PHOTO"))
+        self.TopLabel.setText(_translate("MainWindow", "Top"))
+        self.label.setText(_translate("MainWindow", "Bottom"))
+        self.label_2.setText(_translate("MainWindow", "Shoes"))
+        self.ClickPhotoButton.setText(_translate("MainWindow", "Click A PHOTO"))
+        self.GenderComboBox.clear()
+        self.GenderComboBox.addItem(_translate("MainWindow", "Select Gender"))
+        genders = ['Men', 'Women', 'Mix']
+        for gender in genders:
+            self.GenderComboBox.addItem(_translate("MainWindow", gender))
+        self.StyleComboBox.clear()
+        self.StyleComboBox.addItem(_translate("MainWindow", "Select Style"))
+        styles = ['Casual', 'Ethnic', 'Formal', 'Home', 'Party', 'Smart Casual', 'Sports', 'Travel', 'Mix']
+
