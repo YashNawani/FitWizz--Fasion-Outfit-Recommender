@@ -12,8 +12,24 @@ class Ui_MainWindow(object):
 
 
     # Git check
+    def capture_photo_with_camera(self):
+        import cv2
+        cap = cv2.VideoCapture(0)
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            cv2.imshow('Camera', frame)
+            if cv2.waitKey(1) & 0xFF == ord(' '):
+                photo_path = 'user_photo.jpg'
+                cv2.imwrite(photo_path, frame)
+                self.current_photo_path = photo_path
+                print("Photo captured.")
+                break
+        cap.release()
+        cv2.destroyAllWindows()
+        self.ALL_PREDICT()
 
-    
     def ALL_PREDICT(self):
         sub, info, res_place_holder = single_classification(self.current_photo_path)
         parsed_info = self.parse_info(info)
