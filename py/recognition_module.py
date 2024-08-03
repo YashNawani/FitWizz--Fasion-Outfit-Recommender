@@ -4,6 +4,37 @@ import pandas as pd
 from retry_requests import retry
 
 
+# all output possibilities of the model for subsequent matching
+sub_list = ["bottom","foot","top"]
+top_list = [['Belts', 'Blazers', 'Dresses', 'Dupatta', 'Jackets', 'Kurtas',
+       'Kurtis', 'Lehenga Choli', 'Nehru Jackets', 'Rain Jacket',
+       'Rompers', 'Shirts', 'Shrug', 'Suspenders', 'Sweaters',
+       'Sweatshirts', 'Tops', 'Tshirts', 'Tunics', 'Waistcoat'],
+           ['Boys', 'Girls', 'Men', 'Unisex', 'Women'],
+           ['Black', 'Blue', 'Dark Blue', 'Dark Green', 'Dark Yellow', 'Green',
+       'Grey', 'Light Blue', 'Multi', 'Orange', 'Pink', 'Purple', 'Red',
+       'White', 'Yellow'],
+           ['Fall', 'Spring', 'Summer', 'Winter'],
+           ['Casual', 'Ethnic', 'Formal', 'Party', 'Smart Casual', 'Sports',
+       'Travel']]
+bottom_list = [['Capris', 'Churidar', 'Jeans', 'Jeggings', 'Leggings', 'Patiala',
+       'Salwar', 'Salwar and Dupatta', 'Shorts', 'Skirts', 'Stockings',
+       'Swimwear', 'Tights', 'Track Pants', 'Tracksuits', 'Trousers'],
+              ['Boys', 'Girls', 'Men', 'Unisex', 'Women'],
+              ['Black', 'Blue', 'Dark Blue', 'Dark Green', 'Dark Yellow', 'Grey',
+       'Light Blue', 'Multi', 'Orange', 'Pink', 'Purple', 'Red', 'White',
+       'Yellow'],
+              ['Fall', 'Spring', 'Summer', 'Winter'],
+              ['Casual', 'Ethnic', 'Formal', 'Smart Casual', 'Sports']]
+foot_list = [['Casual Shoes', 'Flats', 'Flip Flops', 'Formal Shoes', 'Heels',
+       'Sandals', 'Sports Sandals', 'Sports Shoes'],
+            ['Boys', 'Girls', 'Men', 'Unisex', 'Women'],
+            ['Black', 'Blue', 'Dark Blue', 'Dark Green', 'Dark Orange',
+       'Dark Yellow', 'Grey', 'Light Blue', 'Multi', 'Orange', 'Pink',
+       'Purple', 'Red', 'White', 'Yellow'],
+            ['Fall', 'Spring', 'Summer', 'Winter'],
+            ['Casual', 'Ethnic', 'Formal', 'Party', 'Smart Casual', 'Sports']]
+
 
 def get_cloth_color(image):
     """
@@ -38,6 +69,25 @@ def color_classification(single_path):
     image = image.convert('RGB')
     return get_cloth_color(image)
 
+
+def convert_rgb_to_names(rgb_tuple):
+    """
+    This function translates rgb to their respective names in css3
+    is a helper function for the two below.
+    Input is a rgb tuple
+    Output is their corresponding name in css3
+    """
+    # a dictionary of all the hex and their respective names in css3
+    css3_db = CSS3_HEX_TO_NAMES
+    names = []
+    rgb_values = []
+    for color_hex, color_name in css3_db.items():
+        names.append(color_name)
+        rgb_values.append(hex_to_rgb(color_hex))
+    
+    kdt_db = KDTree(rgb_values)
+    distance, index = kdt_db.query(rgb_tuple)
+    return names[index]
 
 def single_classification(single_path):
     
