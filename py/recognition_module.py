@@ -36,29 +36,7 @@ foot_list = [['Casual Shoes', 'Flats', 'Flip Flops', 'Formal Shoes', 'Heels',
             ['Casual', 'Ethnic', 'Formal', 'Party', 'Smart Casual', 'Sports']]
 
 
-def get_cloth_color(image):
-    """
-    This function is a helper function of the one below to recognize color of an image
-    Input is an image
-    Output is a color in English
-    """
-    max_score = 0.0001
-    dominant_color = None
-    for count,(r,g,b) in image.getcolors(image.size[0]*image.size[1]):
-       
-        saturation = colorsys.rgb_to_hsv(r/255.0, g/255.0, b/255.0)[1]
-        y = min(abs(r*2104+g*4130+b*802+4096+131072)>>13,235)
-        y = (y-16.0)/(235-16)
-        if y > 0.9:
-            continue
-        score = (saturation+0.1)*count
-        if score > max_score:
-            max_score = score
-            dominant_color = (r,g,b)
-            
-    return convert_rgb_to_names(dominant_color)
- 
- 
+
 def color_classification(single_path):
     """
     This function does color classification for a certain path of a photo (of a clothes)
