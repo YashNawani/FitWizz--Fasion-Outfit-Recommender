@@ -134,3 +134,26 @@ bottom_history = bottom_base_model.fit(bottom_train,
 bottom_base_model.evaluate(bottom_test)
  
 bottom_base_model.save("/content/drive/MyDrive/models/model_2.2")
+
+
+def single_helper(train_images, my_model, lelist):
+    """
+    This function is a helper function of the one below to use pre-trained model to predict.
+    Input is an image, one of three sub-model, a encoder list
+    Output is a list which is the result from the model
+    """
+    # Convert the predicted result encoded as a number back to the original string
+    # and then make them a list contains all the informations
+    my_predictions = my_model.predict(train_images)
+    result = []
+    type_predicted_label = np.argmax(my_predictions[0][0])
+    result.append(lelist[0][type_predicted_label])
+    type_predicted_label = np.argmax(my_predictions[1][0])
+    result.append(lelist[1][type_predicted_label])
+    type_predicted_label = np.argmax(my_predictions[2][0])
+    result.append(lelist[2][type_predicted_label])
+    type_predicted_label = np.argmax(my_predictions[3][0])
+    result.append(lelist[3][type_predicted_label])
+    type_predicted_label = np.argmax(my_predictions[4][0])
+    result.append(lelist[4][type_predicted_label])
+    return result
