@@ -69,9 +69,6 @@ def color_classification(single_path):
     image = Image.open(single_path)
     image = image.convert('RGB')
     return get_cloth_color(image)
-    
-    
- recognition_module.py
 
 
 def convert_rgb_to_names(rgb_tuple):
