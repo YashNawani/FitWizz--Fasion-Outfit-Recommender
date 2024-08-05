@@ -59,16 +59,6 @@ def get_cloth_color(image):
             
     return convert_rgb_to_names(dominant_color)
 
-def color_classification(single_path):
-    """
-    This function does color classification for a certain path of a photo (of a clothes)
-    Input is a path on your computer
-    Output is a color
-    """
-    image = Image.open(single_path)
-    image = image.convert('RGB')
-    return get_cloth_color(image)
-
 
 def convert_rgb_to_names(rgb_tuple):
     """
