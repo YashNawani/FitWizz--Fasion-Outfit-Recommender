@@ -30,7 +30,6 @@ foot_base_model.evaluate(foot_test)
  
 foot_base_model.save("/content/drive/MyDrive/model_2.2")
  
-#!zip -r '"foot_model.zip"' '"foot_model"'
 
 def make_input_array_subcate(df):
     train_images = np.zeros((len(df.id), 80, 60, 3))
