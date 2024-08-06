@@ -20,7 +20,7 @@ import cv2
 
 import matplotlib.image as mpimg
 
-
+#!zip -r '"foot_model.zip"' '"foot_model"'
 foot_history = foot_base_model.fit(foot_train,
                     epochs=5,
                     steps_per_epoch = 2000,
