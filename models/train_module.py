@@ -20,6 +20,29 @@ import cv2
 
 import matplotlib.image as mpimg
 
+#!zip -r '"foot_model.zip"' '"foot_model"'
+foot_history = foot_base_model.fit(foot_train,
+                    epochs=5,
+                    steps_per_epoch = 2000,
+                    validation_data = foot_val)
+ 
+foot_base_model.evaluate(foot_test)
+ 
+foot_base_model.save("/content/drive/MyDrive/model_2.2")
+
+
+def make_input_xx(x):
+    x_input = x.shuffle(buffer_size=len(x))
+    x_train_size = int(0.6 * len(x_input))
+    x_val_size = int(0.2 * len(x_input))
+    x_train = x_input.take(x_train_size).batch(2)
+    x_val = x_input.skip(x_train_size).take(x_val_size).batch(2)
+    x_test = x_input.skip(x_train_size + x_val_size).batch(2)
+    return x_train, x_val, x_test
+ 
+train_module.py
+ 
+  
 def group_color(styles):
     styles["colorgroup"] = -1
     styles.loc[(styles.baseColour=='Red')|
@@ -182,3 +205,4 @@ def build_model(width, height, articleTypeLB, genderLB, baseColourLB, seasonLB, 
  
     model = keras.Model(inputs=inputs, outputs=[article_branch, gender_branch, color_branch, season_branch, usage_branch])
     return model
+
