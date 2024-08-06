@@ -20,6 +20,18 @@ import cv2
 
 import matplotlib.image as mpimg
 
+
+foot_history = foot_base_model.fit(foot_train,
+                    epochs=5,
+                    steps_per_epoch = 2000,
+                    validation_data = foot_val)
+ 
+foot_base_model.evaluate(foot_test)
+ 
+foot_base_model.save("/content/drive/MyDrive/model_2.2")
+ 
+#!zip -r '"foot_model.zip"' '"foot_model"'
+
 def make_input_array_subcate(df):
     train_images = np.zeros((len(df.id), 80, 60, 3))
     for i in range(len(df.id)):
@@ -103,3 +115,4 @@ def build_model(width, height, articleTypeLB, genderLB, baseColourLB, seasonLB, 
  
     model = keras.Model(inputs=inputs, outputs=[article_branch, gender_branch, color_branch, season_branch, usage_branch])
     return model
+
