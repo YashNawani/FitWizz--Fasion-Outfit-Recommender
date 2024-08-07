@@ -205,4 +205,28 @@ def build_model(width, height, articleTypeLB, genderLB, baseColourLB, seasonLB, 
  
     model = keras.Model(inputs=inputs, outputs=[article_branch, gender_branch, color_branch, season_branch, usage_branch])
     return model
+    
+def make_input_array_2(df):
+    train_images = np.zeros((len(df.id), 80, 60, 3))
+    for i in range(len(df.id)):
+        ID = df.id.iloc[i]
+        path = f"images/{ID}.jpg"
+        img = cv2.imread(path)
+        if img.shape != (80, 60, 3):
+            img = image.load_img(path, target_size=(80, 60, 3))
+        train_images[i] = img
+ 
+    data = tf.data.Dataset.from_tensor_slices(
+        (
+            {"images": train_images},
+            {
+                "articleType": df[["articleType"]],
+                "gender": df[['gender']],
+                "baseColour": df[['baseColour']],
+                "season": df[['season']],
+                "usage": df[['usage']]
+            }
+        )
+    )
+    return data
 
